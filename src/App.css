@@ -1,24 +1,64 @@
-input {
-  background-color: white;
-  color: black;
-  margin: 10px;
+a {
+  color: #005792;
 }
 
-.Input {
-
+.api-input-card {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 360px;
+  height: 560px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 6px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.App {
-  /*something*/
+.api-input {
+  border-radius: 6px;
+  background-color: #f8f8f8;
+  opacity: 0.5;
+  margin: 20px 0 0 40px;
+  height: 30px;
+  width: 220px;
+  padding-left: 10px;
 }
 
-.App-header {
+input[type=submit] {
+  background-color: rgba(248,248,248,0);
+  color: rgba(248,248,248,0.5);
+  border: 2px solid rgba(248,248,248,0.5);
+  border-radius: 6px;
+  margin: 0 0 0 10px;
+  height: 34px;
+  transform: translate(0,2px);
+  font-size: 14pt;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+input[type=submit]:hover {
+  background-color: rgba(248,248,248,0.5);
+  color: grey;
+  border: 0;
+  border-radius: 6px;
+  margin: 0 0 0 10px;
+  height: 34px;
+  transform: translate(0,2px);
+  font-size: 14pt;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.enter-api {
   display: flex;
   flex-direction: column;
-  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+  font-family: 'Fjalla One', sans-serif;
+  letter-spacing: 0.09em;
+  line-height: 1.5em;
   align-items: flex-start;
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
-  margin: 10px 0 0 10px;
-  color: #282c34;
+  margin: 60px 0 0 40px;
+  color: white;
+  opacity: 0.5;
 }

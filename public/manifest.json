@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "My Extension",
-  "description": "This extension is a starting point to create a real Chrome extension",
+  "name": "Eyes Above",
+  "description": "A Chrome extension that visualizes and sonifies the artificial satellites orbiting above the user.",
   "version": "0.0.1",
 
   "browser_action": {
@@ -12,5 +12,8 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [
     "geolocation"
-  ]
+  ],
+  "icons": { "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png" }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import EnterKey from './EnterKey.js';
+import SettingsCard from './SettingsCard.js';
 
 if (typeof window !== 'undefined') {
     window.React = React;
@@ -18,7 +18,8 @@ class App extends Component {
         super(props);
         this.state = {
             apiKey: '',
-            geolocation: {}
+            geolocation: {},
+            getInput: true     // Overlay to get API key and settings from user.
         };
         this.updateKey = this.updateKey.bind(this);
         this.getApi = this.getApi.bind(this);
@@ -32,8 +33,6 @@ class App extends Component {
     }
 
     getApi(e) {
-        console.log(this.state.geolocation.latitude);
-        console.log(this.state.geolocation.longitude);
         const url = `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/0/70/18/&apiKey=${this.state.apiKey}`;
         fetch(url)
             .then(response => response.json())
@@ -46,10 +45,10 @@ class App extends Component {
         getPosition()
             .then((position) => {
                 console.log(position);
-                let location = {...this.state.geolocation};
+                let location = {};
                 location.latitude = position.coords.latitude;
                 location.longitude = position.coords.longitude;
-                location.altitude = (position.coords.altitude) ? (position.coords.altitude) : 0;
+                location.altitude = (position.coords.altitude) ? (position.coords.altitude) : 0; //if no altitude use 0
                 this.setState({geolocation: location}, () => {
                     console.log("Updated location state: ", this.state.geolocation)
                 });
@@ -64,18 +63,21 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                <header className="App-header">Please enter an API key from
-                    <a href="https://www.n2yo.com">https://www.n2yo.com</a>:
-                </header>
-                <EnterKey
-                    input={this.state.apiKey}
-                    handleChange={this.updateKey}
-                    getApi={this.getApi}
-                />
-            </div>
-        );
+        if (this.state.getInput) {
+            return (
+                <div className="App">
+                    <div className="api-input-card"></div>
+                    <h1 className="enter-api">Please enter an API key from
+                        <a href="https://www.n2yo.com">https://www.n2yo.com</a>
+                    </h1>
+                    <SettingsCard
+                        input={this.state.apiKey}
+                        handleChange={this.updateKey}
+                        getApi={this.getApi}
+                    />
+                </div>
+            );
+        }
     }
 }
 
