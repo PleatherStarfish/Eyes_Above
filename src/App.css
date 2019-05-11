@@ -1,19 +1,49 @@
 a {
-    color: #005792;
+    color: rgba(255,240,228,1);
+}
+h1 {
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 0.09em;
+    line-height: 1.5em;
+    color: rgba(255,185,124,1);
+    opacity: 1;
+    font-size: calc(10px + 2vmin);
+}
+
+h2 {
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 0.09em;
+    line-height: 1.5em;
+    color: rgba(255,185,124,1);
+    opacity: 1;
+    font-size: calc(6px + 2vmin);
+}
+
+select {
+    margin: 20px 0 0 24px;
+    width: 100px;
+    height: 30px;
+    border: 2px solid rgba(119, 119, 119, 0.5);
 }
 
 #close-settings {
     background-image: url('media/close.png');
     position: absolute;
-    top: 15px;
-    left: 330px;
+    top: 35px;
+    left: 350px;
     height: 15px;
     width: 15px;
+    padding: 15px;
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 
 #close-settings:hover {
     background-image: url('media/close_hover.png');
+    padding: 15px;
+    height: 15px;
+    width: 15px;
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 
@@ -40,9 +70,13 @@ a {
     left: 20px;
     width: 360px;
     height: 560px;
-    background-color: #fff;
+    background-color: rgba(98,95,124,1);
     border-radius: 6px;
     opacity: 0.7;
+}
+
+.api-input-card-content {
+    margin: 20px;
 }
 
 .api-input {
@@ -86,13 +120,12 @@ input[type=submit]:hover {
     display: flex;
     flex-direction: column;
     position: relative;
-    font-family: 'Fjalla One', sans-serif;
-    letter-spacing: 0.09em;
-    line-height: 1.5em;
     align-items: flex-start;
     justify-content: flex-start;
-    font-size: calc(10px + 2vmin);
     margin: 40px 0 0 24px;
-    color: #777777;
-    opacity: 1;
+}
+
+.update-interval-heading {
+    margin: 60px 0 0 24px;
+    font-weight: bold;
 }

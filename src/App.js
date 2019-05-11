@@ -20,6 +20,10 @@ class App extends Component {
             apiKey: '',
             geolocation: {},
             satellites: [],
+            searchRadius: 5,
+            id: 'ANY',
+            url: '',
+            updateInterval: 60,
             getInput: true     // Overlay to get API key and settings from user.
         };
         this.updateKey = this.updateKey.bind(this);
@@ -27,6 +31,8 @@ class App extends Component {
         this.getLocation = this.getLocation.bind(this);
         this.closeCard = this.closeCard.bind(this);
         this.openCard = this.openCard.bind(this);
+        this.fetchApi = this.fetchApi.bind(this);
+        this.update = this.update.bind(this);
     }
 
     // Set state to value entered by the user
@@ -50,13 +56,43 @@ class App extends Component {
         })
     }
 
-    // Call the N2YO API using the user-entered key
-    getApi(e) {
-        const url = `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/0/70/18/&apiKey=${this.state.apiKey}`;
+    update() {
+
+        setInterval(() => {
+            this.getLocation();
+
+            this.setState({
+                url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
+                /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.searchRadius}
+                /${this.state.id}/&apiKey=${this.state.apiKey}`
+            });
+
+            this.fetchApi(this.state.url);
+        }, 10000);
+    }
+
+    fetchApi(url) {
         fetch(url)
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then((json) => {
+                console.log(json.above);
+                this.setState({
+                    satellites: json.above
+                })
+            })
             .catch(err => console.log(err));
+    }
+
+    // Call the N2YO API using the user-entered key
+    getApi(e) {
+        this.setState({
+            url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
+            /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.searchRadius}
+            /${this.state.id}/&apiKey=${this.state.apiKey}`
+        });
+
+        this.fetchApi(this.state.url);
+
         e.preventDefault();
     }
 
@@ -83,6 +119,10 @@ class App extends Component {
         this.getLocation();
     }
 
+    componentDidMount() {
+        this.update();
+    }
+
     render() {
         if (this.state.getInput) {
             return (
@@ -92,6 +132,7 @@ class App extends Component {
                         input={this.state.apiKey}
                         handleChange={this.updateKey}
                         getApi={this.getApi}
+                        updateInterval={this.state.updateInterval}
                     />
                 </div>
             );
