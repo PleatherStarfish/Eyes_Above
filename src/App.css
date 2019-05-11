@@ -1,64 +1,98 @@
 a {
-  color: #005792;
+    color: #005792;
+}
+
+#close-settings {
+    background-image: url('media/close.png');
+    position: absolute;
+    top: 15px;
+    left: 330px;
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+}
+
+#close-settings:hover {
+    background-image: url('media/close_hover.png');
+    cursor: pointer;
+}
+
+#open-settings {
+    background-image: url('media/settings2.png') !important;
+    position: absolute;
+    top: 555px;
+    left: 15px;
+    cursor: pointer !important;
+    padding: 35px 0 35px 35px;
+    background-repeat: no-repeat;
+}
+
+#open-settings:hover {
+    background-image: url('media/settings2.png') !important;
+    cursor: pointer !important;
+    padding: 35px 0 35px 35px;
+    background-repeat: no-repeat;
 }
 
 .api-input-card {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 360px;
-  height: 560px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 6px;
-  opacity: 0.5;
-  pointer-events: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 360px;
+    height: 560px;
+    background-color: #fff;
+    border-radius: 6px;
+    opacity: 0.7;
 }
 
 .api-input {
-  border-radius: 6px;
-  background-color: #f8f8f8;
-  opacity: 0.5;
-  margin: 20px 0 0 40px;
-  height: 30px;
-  width: 220px;
-  padding-left: 10px;
+    border-radius: 6px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.85);
+    margin: 20px 0 0 24px;
+    height: 30px;
+    width: 220px;
+    padding-left: 10px;
+    font-weight: bold;
+    border: 2px solid rgba(119, 119, 119, 0.5);
 }
 
 input[type=submit] {
-  background-color: rgba(248,248,248,0);
-  color: rgba(248,248,248,0.5);
-  border: 2px solid rgba(248,248,248,0.5);
-  border-radius: 6px;
-  margin: 0 0 0 10px;
-  height: 34px;
-  transform: translate(0,2px);
-  font-size: 14pt;
-  font-family: 'Fjalla One', sans-serif;
+    background-color: rgba(119, 119, 119, 0);
+    color: rgba(119, 119, 119, 0.5);
+    border: 2px solid rgba(119, 119, 119, 0.5);
+    border-radius: 6px;
+    margin: 0 0 0 10px;
+    height: 36px;
+    transform: translate(0, 2px);
+    font-size: 14pt;
+    font-family: 'Fjalla One', sans-serif;
 }
 
 input[type=submit]:hover {
-  background-color: rgba(248,248,248,0.5);
-  color: grey;
-  border: 0;
-  border-radius: 6px;
-  margin: 0 0 0 10px;
-  height: 34px;
-  transform: translate(0,2px);
-  font-size: 14pt;
-  font-family: 'Fjalla One', sans-serif;
+    background-color: rgba(119, 119, 119, 0.5);
+    position: relative;
+    color: rgba(255, 255, 255, 1);
+    border: 0;
+    border-radius: 6px;
+    margin: 0 0 0 10px;
+    height: 36px;
+    transform: translate(0, 2px);
+    font-size: 14pt;
+    font-family: 'Fjalla One', sans-serif;
 }
 
-.enter-api {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Fjalla One', sans-serif;
-  letter-spacing: 0.09em;
-  line-height: 1.5em;
-  align-items: flex-start;
-  justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-  margin: 60px 0 0 40px;
-  color: white;
-  opacity: 0.5;
+.enter-api-heading {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 0.09em;
+    line-height: 1.5em;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: calc(10px + 2vmin);
+    margin: 40px 0 0 24px;
+    color: #777777;
+    opacity: 1;
 }

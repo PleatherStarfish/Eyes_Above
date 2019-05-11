@@ -19,19 +19,38 @@ class App extends Component {
         this.state = {
             apiKey: '',
             geolocation: {},
+            satellites: [],
             getInput: true     // Overlay to get API key and settings from user.
         };
         this.updateKey = this.updateKey.bind(this);
         this.getApi = this.getApi.bind(this);
         this.getLocation = this.getLocation.bind(this);
+        this.closeCard = this.closeCard.bind(this);
+        this.openCard = this.openCard.bind(this);
     }
 
+    // Set state to value entered by the user
     updateKey(event) {
         this.setState({
             apiKey: event.target.value
         });
     }
 
+    // Set state to close the "settings" card
+    closeCard() {
+        this.setState({
+            getInput: false
+        })
+    }
+
+    // Set state to open the "settings" card
+    openCard() {
+        this.setState({
+            getInput: true
+        })
+    }
+
+    // Call the N2YO API using the user-entered key
     getApi(e) {
         const url = `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/0/70/18/&apiKey=${this.state.apiKey}`;
         fetch(url)
@@ -41,6 +60,7 @@ class App extends Component {
         e.preventDefault();
     }
 
+    // Get the user's geolocation
     getLocation() {
         getPosition()
             .then((position) => {
@@ -58,6 +78,7 @@ class App extends Component {
             });
     }
 
+    // When the App component mounts, get the user's initial geolocation
     componentWillMount() {
         this.getLocation();
     }
@@ -66,15 +87,18 @@ class App extends Component {
         if (this.state.getInput) {
             return (
                 <div className="App">
-                    <div className="api-input-card"></div>
-                    <h1 className="enter-api">Please enter an API key from
-                        <a href="https://www.n2yo.com">https://www.n2yo.com</a>
-                    </h1>
                     <SettingsCard
+                        closeCard={this.closeCard}
                         input={this.state.apiKey}
                         handleChange={this.updateKey}
                         getApi={this.getApi}
                     />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <div id="open-settings" onClick={this.openCard}></div>
                 </div>
             );
         }
