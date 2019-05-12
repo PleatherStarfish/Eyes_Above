@@ -25,6 +25,7 @@ class App extends Component {
             url: '',               // URL called by the API
             interval: 60,          // Time interval in which the app rechecks its geolocation
             currentInterval: null, // Set to a "setInterval" callback function by the "update" method
+            transactionscount: 0,  // Number of API transactions in the last hour
             getInput: true         // Overlay to get API key and settings from user.
         };
         this.updateKey = this.updateKey.bind(this);
@@ -42,7 +43,9 @@ class App extends Component {
     updateKey(event) {
         this.setState({
             apiKey: event.target.value
-        }, () => console.log(this.state.apiKey));
+        }, () => {
+            // console.log(this.state.apiKey)
+        });
     }
 
     // Set how often the app refreshes itself
@@ -52,28 +55,26 @@ class App extends Component {
         clearInterval(this.state.currentInterval);
 
         this.setState({
-            degrees: Number(event.target.value)
+            interval: Number(event.target.value)
         }, () => {
-            console.log(this.state.degrees);
+            // console.log(this.state.interval);
             this.update();
         });
     }
 
     updateDegrees(event) {
         this.setState({
-            interval: Number(event.target.value)
+            degrees: Number(event.target.value)
 
         }, () => {
-            console.log(this.state.degrees);
+            // console.log(this.state.degrees);
 
             }, () => {
                 this.setState({
-                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
-                        /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}
-                        /${this.state.id}/&apiKey=${this.state.apiKey}`
+                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`
 
                 }, () => {
-                    console.log(this.state.url);
+                    // console.log(this.state.url);
                     this.fetchApi(this.state.url);
                     });
             });
@@ -100,27 +101,35 @@ class App extends Component {
                 this.getLocation();
 
                 this.setState({
-                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
-                    /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}
-                    /${this.state.id}/&apiKey=${this.state.apiKey}`
+                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`
                 }, () => {
                     this.fetchApi(this.state.url);
                 });
+
+                console.log(this.state);
 
             }, this.state.interval * 1000)
         })
     }
 
     fetchApi(url) {
-        fetch(url)
-            .then(response => response.json())
-            .then((json) => {
-                console.log(json.above);
-                this.setState({
-                    satellites: json.above
+        if (this.state.transactionscount < 1000) {
+            fetch(url)
+                .then(response => response.json())
+                .then((json) => {
+                    // console.log(json);
+                    this.setState({
+                        satellites: json.above
+                    }, () => {
+                        this.setState({
+                            transactionscount: this.state.transactionscount + 1
+                        });
+                    })
                 })
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
+        } else {
+            console.log("More than 1000 API requests in the last hour.")
+        }
     }
 
     // Call the N2YO API using the user-entered key
@@ -129,9 +138,9 @@ class App extends Component {
             url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
             /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}
             /${this.state.id}/&apiKey=${this.state.apiKey}`
+        }, () => {
+            this.fetchApi(this.state.url)
         });
-
-        this.fetchApi(this.state.url);
 
         e.preventDefault();
     }
@@ -140,13 +149,13 @@ class App extends Component {
     getLocation() {
         getPosition()
             .then((position) => {
-                console.log(position);
+                // console.log(position);
                 let location = {};
                 location.latitude = position.coords.latitude;
                 location.longitude = position.coords.longitude;
                 location.altitude = (position.coords.altitude) ? (position.coords.altitude) : 0; //if no altitude use 0
                 this.setState({geolocation: location}, () => {
-                    console.log("Updated location state: ", this.state.geolocation)
+                    // console.log("Updated location state: ", this.state.geolocation)
                 });
             })
             .catch((err) => {
@@ -174,8 +183,8 @@ class App extends Component {
                         getApi={this.getApi}
                         interval={this.state.interval}
                         updateInterval = {this.updateInterval}
-                        degrees = {this.state.degrees}
-                        updateDegrees = {this.updateDegrees}
+                        degrees={this.state.degrees}
+                        updateDegrees={this.updateDegrees}
                     />
                 </div>
             );

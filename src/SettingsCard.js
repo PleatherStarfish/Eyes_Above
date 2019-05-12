@@ -34,6 +34,9 @@ class SettingsCard extends Component {
                         updateDegrees={this.props.updateDegrees}
                     />
 
+                    <p style={{marginTop:'30px'}}>Eyes Above 0.1.0</p>
+                    <p style={{marginTop:'0px'}}>Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPLv3</a></p>
+
                 </div>
 
             </div>
