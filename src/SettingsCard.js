@@ -7,16 +7,15 @@ import './App.css';
 class SettingsCard extends Component {
     render() {
         return (
-            <div>
+            <div className="api-input-card-container">
                 <div className="api-input-card"></div>
 
                 <div className="api-input-card-content">
 
                     <div id="close-settings" onClick={this.props.closeCard}></div>
 
-                    <h1 className="enter-api-heading">Please enter an API key from
-                        <a href="https://www.n2yo.com">N2YO.com</a>
-                    </h1>
+                    <h1 id="enter-api-heading">Please enter an API key from</h1>
+                    <h1 id="enter-api-heading-link"><a href="https://www.n2yo.com">N2YO.com</a></h1>
 
                     <ApiKeyInput
                         fetchSatellites={this.props.fetchSatellites}
@@ -34,8 +33,8 @@ class SettingsCard extends Component {
                         updateDegrees={this.props.updateDegrees}
                     />
 
-                    <p style={{marginTop:'44px'}}>Eyes Above 0.1.0 | <a href="https://github.com/PleatherStarfish/eyes_above">Instructions</a></p>
-                    <p style={{marginTop:'0px'}}>Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPLv3</a></p>
+                    <p id="instructions" style={{marginTop:'44px'}}>Eyes Above 0.1.0 | </p><p style={{top: '474px',left: '122px'}}>&nbsp;<a href="https://github.com/PleatherStarfish/eyes_above">Instructions</a></p>
+                    <p id="license">Licensed under </p><p style={{top: '494px', left: '108px', width: '100px'}}><a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPLv3</a></p>
 
                 </div>
 

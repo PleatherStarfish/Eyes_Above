@@ -1,166 +1,226 @@
+#close-settings {
+    background-image:url(media/close.png)!important;
+    background-repeat:no-repeat;
+    cursor:pointer!important;
+    display:block;
+    height:15px;
+    left:350px;
+    position:absolute;
+    top:35px;
+    width:15px;
+}
+
+#close-settings:hover {
+    background-image:url(media/close_hover.png)!important;
+}
+
+#open-settings {
+    background-image:url(media/settings2.png)!important;
+    background-repeat:no-repeat;
+    cursor:pointer!important;
+    left:15px;
+    padding:35px 0 35px 35px;
+    position:absolute;
+    top:555px;
+}
+
+#open-settings:hover {
+    background-image:url(media/settings2.png)!important;
+    background-repeat:no-repeat;
+    cursor:pointer!important;
+    padding:35px 0 35px 35px;
+}
+
+.api-input-card {
+    background-color:rgba(98,95,124,0.9);
+    border-radius:6px;
+    height:520px;
+    left:20px;
+    position:absolute;
+    top:20px;
+    width:360px;
+}
+
+.api-input-card-content {
+    top: 20px;
+    left: 20px;
+}
+
+.api-input-card-content * {
+    position: absolute;
+}
+
+.card {
+    background: linear-gradient(to bottom left, rgba(102,152,255,0.4), rgba(21,27,84,0.4));
+    margin:0;
+    z-index:-999999;
+}
+
+.card h2 {
+    color:white;
+    margin:0;
+    padding:20px 0 0 24px;
+}
+
+.card-deck {
+    z-index:-1000;
+}
+
 a {
-    color: rgba(255,240,228,1);
+    color:rgba(255,240,228,1);
+}
+
+h1 {
+    color:rgba(255,185,124,1);
+    font-family:'Fjalla One', sans-serif;
+    font-size:calc(10px + 2vmin);
+    letter-spacing:.09em;
+    line-height:1.5em;
+    opacity:1;
+}
+
+h2 {
+    color:rgba(255,185,124,1);
+    font-family:'Fjalla One', sans-serif;
+    font-size:calc(6px + 2vmin);
+    letter-spacing:.09em;
+    line-height:1.5em;
+    opacity:1;
+}
+
+input[type=submit] {
+    background-color:rgba(245,245,245,0);
+    border:2px solid rgba(245,245,245,0.8);
+    border-radius:6px;
+    color:rgba(245,245,245,0.8);
+    font-family:'Fjalla One', sans-serif;
+    font-size:14pt;
+    height:36px;
+    margin:0 0 0 10px;
+    transform:translate(0,2px);
+}
+
+input[type=submit]:hover {
+    background-color:rgba(245,245,245,1);
+    border:2px solid rgba(245,245,245,1);
+    border-radius:6px;
+    color:rgba(98,95,124,1);
+    cursor:pointer!important;
+    font-family:'Fjalla One', sans-serif;
+    font-size:14pt;
+    height:36px;
+    margin:0 0 0 10px;
+    transform:translate(0,2px);
+}
+
+li {
+    height:108px;
+    width:100%;
 }
 
 p {
-    color: rgba(255,240,228,1);
-    letter-spacing: 0.09em;
-    line-height: 1.5em;
-    font-size: calc(4px + 2vmin);
-    font-family: 'Fjalla One', sans-serif;
-    margin: 10px 0 0 24px;
+    color:rgba(255,240,228,1);
+    font-family:'Fjalla One', sans-serif;
+    font-size:calc(4px + 2vmin);
+    letter-spacing:.09em;
+    line-height:1.5em;
+    margin:10px 0 0 24px;
 }
 
-ul,li { list-style-type: none;
+select {
+    background-color:rgba(245,245,245,0.8);
+    border:2px solid rgba(119,119,119,0.5);
+    font-weight:bold;
+    height:30px;
+    margin:20px 0 0 24px;
+    width:100px;
+}
+
+ul {
+    height:540px;
+    overflow:scroll;
+    overflow-x:hidden;
+    width:400px;
+}
+
+ul,li {
     list-style-position:inside;
+    list-style-type:none;
     margin:0;
     padding:0;
 }
 
-ul {
-    width: 400px;
-    height: 600px;
-    overflow: auto;
+/* SETTINGS OVERLAY */
+
+#enter-api-heading {
+    margin:70px 0 0 24px;
+    width: 350px;
+    left: 18px;
 }
 
-li {
-    width: 100%;
-    height: 100px;
-    opacity: 0.5;
+#enter-api-heading-link {
+    left: 42px;
+    top: 85px;
 }
 
-h1 {
-    font-family: 'Fjalla One', sans-serif;
-    letter-spacing: 0.09em;
-    line-height: 1.5em;
-    color: rgba(255,185,124,1);
-    opacity: 1;
-    font-size: calc(10px + 2vmin);
+#api-input {
+    background-color:rgba(245,245,245,0.8);
+    border:2px solid rgba(119,119,119,0.5);
+    border-radius:6px;
+    font-weight:bold;
+    height:30px;
+    margin:20px 0 0 24px;
+    padding-left:10px;
+    width:220px;
+    top: 120px;
+    left: 18px;
 }
 
-h2 {
-    font-family: 'Fjalla One', sans-serif;
-    letter-spacing: 0.09em;
-    line-height: 1.5em;
-    color: rgba(255,185,124,1);
-    opacity: 1;
-    font-size: calc(6px + 2vmin);
+#api-submit {
+    top: 138px;
+    left: 280px;
 }
 
-select {
-    margin: 20px 0 0 24px;
-    width: 100px;
-    height: 30px;
-    font-weight: bold;
-    background-color: rgba(245,245,245, 0.8);
-    border: 2px solid rgba(119, 119, 119, 0.5);
+#update-interval-heading {
+    font-weight:bold;
+    margin:30px 0 0 24px;
+    top:180px;
+    width: 350px;
+    left: 18px;
 }
 
-#close-settings {
-    position: absolute;
-    display: block;
-    width: 15px;
-    height: 15px;
-    background-image: url(media/close.png) !important;
-    background-repeat: no-repeat;
-    top: 35px;
-    left: 350px;
-    cursor: pointer !important;
+#caution {
+    top:230px;
+    width:350px;
+    left: 18px;
 }
 
-#close-settings:hover {
-    background-image: url(media/close_hover.png) !important;
+#interval {
+    top:270px;
+    left: 18px;
 }
 
-#open-settings {
-    background-image: url('media/settings2.png') !important;
-    position: absolute;
-    top: 555px;
-    left: 15px;
-    cursor: pointer !important;
-    padding: 35px 0 35px 35px;
-    background-repeat: no-repeat;
+#update-degree-heading {
+    font-weight:bold;
+    margin:30px 0 0 24px;
+    width: 350px;
+    top:320px;
+    left: 18px;
 }
 
-#open-settings:hover {
-    background-image: url('media/settings2.png') !important;
-    cursor: pointer !important;
-    padding: 35px 0 35px 35px;
-    background-repeat: no-repeat;
+#degrees {
+    top:370px;
+    left: 18px;
 }
 
-.api-input-card {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 360px;
-    height: 560px;
-    background-color: rgba(98,95,124,0.8);
-    border-radius: 6px;
-    z-index: -10 !important;
+#instructions {
+    top:440px;
+    width:350px;
+    left: 18px;
 }
 
-.api-input-card-content {
-    margin: 20px;
+#license {
+    top: 494px;
+    width:350px;
+    left: 18px;
 }
-
-.api-input {
-    border-radius: 6px;
-    position: relative;
-    background-color: rgba(245,245,245, 0.8);
-    margin: 20px 0 0 24px;
-    height: 30px;
-    width: 220px;
-    padding-left: 10px;
-    font-weight: bold;
-    border: 2px solid rgba(119, 119, 119, 0.5);
-}
-
-input[type=submit] {
-    background-color: rgba(245,245,245, 0);
-    color: rgba(245,245,245, 0.8);
-    border: 2px solid rgba(245,245,245, 0.8);
-    border-radius: 6px;
-    margin: 0 0 0 10px;
-    height: 36px;
-    transform: translate(0, 2px);
-    font-size: 14pt;
-    font-family: 'Fjalla One', sans-serif;
-}
-
-input[type=submit]:hover {
-    background-color: rgba(245,245,245, 1);
-    position: relative;
-    color: rgba(98,95,124,1);
-    border: 2px solid rgba(245,245,245, 1);
-    border-radius: 6px;
-    margin: 0 0 0 10px;
-    height: 36px;
-    transform: translate(0, 2px);
-    font-size: 14pt;
-    font-family: 'Fjalla One', sans-serif;
-    cursor: pointer !important;
-}
-
-.enter-api-heading {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 70px 0 0 24px;
-}
-
-.update-interval-heading {
-    margin: 30px 0 0 24px;
-    font-weight: bold;
-}
-
-.update-degree-heading {
-    margin: 30px 0 0 24px;
-    font-weight: bold;
-}
-
-/*.cards {*/
-/*    margin: 0 !important;*/
-/*}*/

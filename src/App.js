@@ -1,3 +1,5 @@
+/* global chrome */
+
 import React, {Component} from 'react';
 import './App.css';
 import SettingsCard from './SettingsCard.js';
@@ -43,7 +45,7 @@ class App extends Component {
         this.setState({
             apiKey: event.target.value
         }, () => {
-            // console.log(this.state.apiKey)
+            chrome.storage.sync.set({'apiKey': this.state.apiKey})
         });
     }
 
@@ -137,7 +139,10 @@ class App extends Component {
 
     // When the App component mounts, get the user's initial geolocation
     componentWillMount() {
-        // this.getLocation(false);
+        chrome.storage.sync.get(['apiKey'], (result) => {
+            (result.apiKey) ? this.setState({apiKey: result.apiKey})
+                     : (console.log("No API key in local storage. Please enter one."))
+        });
     }
 
     componentDidMount() {
@@ -164,21 +169,21 @@ class App extends Component {
             </div>;
 
         let cardDeck =
-            <div>
-                <div style={{zIndex: 999}} id="open-settings" onClick={this.openCard}></div>
-                <ul className="cards" style={{margin: 0}}>
-                    {this.state.satellites.map(item =>
-                        <Card item={item} key={item.satid} />
-                    )}
+            <div className="card-deck">
+                <div id="open-settings" onClick={this.openCard}></div>
+                <ul>
+                    {(this.state.satellites)
+                        ? this.state.satellites.map(item => <Card item={item} key={item.satid} />)
+                        : console.log("No satellites found.")}
                 </ul>
             </div>;
 
-            return (
-                <div>
-                    {this.state.getInput && overlay}
-                    {cardDeck}
-                </div>
-            )
+        return (
+            <div>
+                {this.state.getInput && overlay}
+                {cardDeck}
+            </div>
+        )
 
     }
 }

@@ -3,14 +3,14 @@ import React, {Component} from 'react';
 function ApiKeyInput(props) {
     return (
         <form onSubmit={props.fetchSatellites}>
-            <input className="api-input"
+            <input id="api-input"
                    type="text"
                    name="apikeyin"
                    value={props.keyInput}
                    onChange={props.updateKeyState}
                    placeholder="######-######-######-####"
             />
-            <input className="api-submit"
+            <input id="api-submit"
                    type="submit"
                    value="Submit"
             />
