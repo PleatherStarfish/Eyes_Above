@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 
 function ApiKeyInput(props) {
     return (
-        <form onSubmit={props.getApi}>
+        <form onSubmit={props.fetchSatellites}>
             <input className="api-input"
                    type="text"
                    name="apikeyin"
-                   value={props.input}
-                   onChange={props.handleChange}
+                   value={props.keyInput}
+                   onChange={props.updateKeyState}
                    placeholder="######-######-######-####"
             />
             <input className="api-submit"

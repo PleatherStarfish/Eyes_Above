@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import SettingsCard from './SettingsCard.js';
+import Card from './Card.js';
 
 if (typeof window !== 'undefined') {
     window.React = React;
@@ -18,25 +19,23 @@ class App extends Component {
         super(props);
         this.state = {
             apiKey: '',            // User supplied API key
-            geolocation: {},       // An object that will be set to longitude, latitude, and altitude
             satellites: [],        // Array returned by the API containing satellites in the sky
             degrees: 5,            // Degrees of the search radius in the sky above
             id: 'ANY',             // Types of satellites returned by the API
-            url: '',               // URL called by the API
             interval: 60,          // Time interval in which the app rechecks its geolocation
             currentInterval: null, // Set to a "setInterval" callback function by the "update" method
             transactionscount: 0,  // Number of API transactions in the last hour
             getInput: true         // Overlay to get API key and settings from user.
         };
         this.updateKey = this.updateKey.bind(this);
-        this.getApi = this.getApi.bind(this);
         this.getLocation = this.getLocation.bind(this);
         this.closeCard = this.closeCard.bind(this);
         this.openCard = this.openCard.bind(this);
-        this.fetchApi = this.fetchApi.bind(this);
+        this.fetchSatellites = this.fetchSatellites.bind(this);
         this.update = this.update.bind(this);
         this.updateInterval = this.updateInterval.bind(this);
         this.updateDegrees = this.updateDegrees.bind(this);
+        this.getApiOnKeySubmit = this.getApiOnKeySubmit.bind(this);
     }
 
     // Set state to value entered by the user
@@ -65,19 +64,10 @@ class App extends Component {
     updateDegrees(event) {
         this.setState({
             degrees: Number(event.target.value)
-
         }, () => {
-            // console.log(this.state.degrees);
-
-            }, () => {
-                this.setState({
-                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`
-
-                }, () => {
-                    // console.log(this.state.url);
-                    this.fetchApi(this.state.url);
-                    });
-            });
+                // console.log(this.state.url);
+                this.getLocation();
+        });
     }
 
     // Set state to close the "settings" card
@@ -94,37 +84,27 @@ class App extends Component {
         })
     }
 
-
+    // Update is a callback that updates this.state.geolocation and calls the API at intervals
     update() {
         this.setState({currentInterval:
             setInterval(() => {
-                this.getLocation();
-
-                this.setState({
-                    url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}/${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`
-                }, () => {
-                    this.fetchApi(this.state.url);
-                });
-
-                console.log(this.state);
-
+                this.getLocation()
             }, this.state.interval * 1000)
         })
     }
 
-    fetchApi(url) {
+    fetchSatellites(geolocation) {
+        const url = `https://www.n2yo.com/rest/v1/satellite/above/${geolocation.latitude}/${geolocation.longitude}/${geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`;
+        console.log(url);
         if (this.state.transactionscount < 1000) {
             fetch(url)
                 .then(response => response.json())
                 .then((json) => {
-                    // console.log(json);
+                    console.log(json);
                     this.setState({
-                        satellites: json.above
-                    }, () => {
-                        this.setState({
-                            transactionscount: this.state.transactionscount + 1
-                        });
-                    })
+                        satellites: json.above,
+                        transactionscount: json.info.transactionscount
+                    });
                 })
                 .catch(err => console.log(err));
         } else {
@@ -132,31 +112,23 @@ class App extends Component {
         }
     }
 
-    // Call the N2YO API using the user-entered key
-    getApi(e) {
-        this.setState({
-            url: `https://www.n2yo.com/rest/v1/satellite/above/${this.state.geolocation.latitude}
-            /${this.state.geolocation.longitude}/${this.state.geolocation.altitude}/${this.state.degrees}
-            /${this.state.id}/&apiKey=${this.state.apiKey}`
-        }, () => {
-            this.fetchApi(this.state.url)
-        });
-
+    // method to handle key input from form field
+    getApiOnKeySubmit(e) {
+        this.getLocation();
         e.preventDefault();
     }
 
     // Get the user's geolocation
-    getLocation() {
+    getLocation(willFetch=true) {
         getPosition()
             .then((position) => {
-                // console.log(position);
                 let location = {};
                 location.latitude = position.coords.latitude;
                 location.longitude = position.coords.longitude;
                 location.altitude = (position.coords.altitude) ? (position.coords.altitude) : 0; //if no altitude use 0
-                this.setState({geolocation: location}, () => {
-                    // console.log("Updated location state: ", this.state.geolocation)
-                });
+                if (willFetch) {
+                    this.fetchSatellites(location)  // Usually we want to go ahead and fetch satellites, but sometimes not
+                }
             })
             .catch((err) => {
                 console.error(err.message);
@@ -165,7 +137,7 @@ class App extends Component {
 
     // When the App component mounts, get the user's initial geolocation
     componentWillMount() {
-        this.getLocation();
+        // this.getLocation(false);
     }
 
     componentDidMount() {
@@ -173,28 +145,41 @@ class App extends Component {
     }
 
     render() {
-        if (this.state.getInput) {
-            return (
-                <div className="App">
-                    <SettingsCard
-                        closeCard={this.closeCard}
-                        input={this.state.apiKey}
-                        handleChange={this.updateKey}
-                        getApi={this.getApi}
-                        interval={this.state.interval}
-                        updateInterval = {this.updateInterval}
-                        degrees={this.state.degrees}
-                        updateDegrees={this.updateDegrees}
-                    />
-                </div>
-            );
-        } else {
+
+        console.log("OUTPUT");
+        console.log(this.state.satellites);
+
+        let overlay =
+            <div>
+                <SettingsCard
+                    closeCard={this.closeCard}
+                    keyInput={this.state.apiKey}
+                    updateKeyState={this.updateKey}
+                    fetchSatellites={this.getApiOnKeySubmit}
+                    interval={this.state.interval}
+                    updateInterval = {this.updateInterval}
+                    degrees={this.state.degrees}
+                    updateDegrees={this.updateDegrees}
+                />
+            </div>;
+
+        let cardDeck =
+            <div>
+                <div style={{zIndex: 999}} id="open-settings" onClick={this.openCard}></div>
+                <ul className="cards" style={{margin: 0}}>
+                    {this.state.satellites.map(item =>
+                        <Card item={item} key={item.satid} />
+                    )}
+                </ul>
+            </div>;
+
             return (
                 <div>
-                    <div id="open-settings" onClick={this.openCard}></div>
+                    {this.state.getInput && overlay}
+                    {cardDeck}
                 </div>
-            );
-        }
+            )
+
     }
 }
 
