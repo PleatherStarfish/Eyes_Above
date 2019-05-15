@@ -22,9 +22,9 @@ class App extends Component {
         this.state = {
             apiKey: '',            // User supplied API key
             satellites: [],        // Array returned by the API containing satellites in the sky
-            degrees: 5,            // Degrees of the search radius in the sky above
+            degrees: 10,            // Degrees of the search radius in the sky above
             id: 'ANY',             // Types of satellites returned by the API
-            interval: 60,          // Time interval in which the app rechecks its geolocation
+            interval: 15,          // Time interval in which the app rechecks its geolocation
             currentInterval: null, // Set to a "setInterval" callback function by the "update" method
             transactionscount: 0,  // Number of API transactions in the last hour
             getInput: true         // Overlay to get API key and settings from user.
@@ -103,8 +103,10 @@ class App extends Component {
                 .then(response => response.json())
                 .then((json) => {
                     console.log(json);
+                    let incomingSatsArray = json.above;
+                    incomingSatsArray.sort((a, b) => parseFloat(a.satid) - parseFloat(b.satid)); // sort by satid
                     this.setState({
-                        satellites: json.above,
+                        satellites: incomingSatsArray,
                         transactionscount: json.info.transactionscount
                     });
                 })
@@ -151,9 +153,6 @@ class App extends Component {
 
     render() {
 
-        console.log("OUTPUT");
-        console.log(this.state.satellites);
-
         let overlay =
             <div>
                 <SettingsCard
@@ -169,18 +168,23 @@ class App extends Component {
             </div>;
 
         let cardDeck =
-            <div className="card-deck">
-                <div id="open-settings" onClick={this.openCard}></div>
+            <a className="card-deck">
+                <div id="open-settings" onClick={this.openCard} />
+                <a href="https://github.com/PleatherStarfish/Eyes_Above" target="_blank" ><div id="open-info" /></a>
                 <ul>
                     {(this.state.satellites)
                         ? this.state.satellites.map(item => <Card item={item} key={item.satid} />)
                         : console.log("No satellites found.")}
                 </ul>
-            </div>;
+            </a>;
+
+        let warning = <div id="warning"><p>There are no satellites to display. Check that the API key is correct or try setting a
+            larger search radius. If you recently changed the key, the app may take a few moments to update.</p></div>;
 
         return (
             <div>
                 {this.state.getInput && overlay}
+                {(this.state.satellites.length === 0) && warning}
                 {cardDeck}
             </div>
         )

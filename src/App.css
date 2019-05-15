@@ -31,6 +31,27 @@
     padding:35px 0 35px 35px;
 }
 
+#open-info {
+    background-image:url(media/info.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    left:55px;
+    padding:35px 0 35px 35px;
+    position:absolute;
+    top:555px;
+}
+
+#warning {
+    position:absolute;
+    margin:40px;
+    font-size:18pt;
+    z-index:-999999;
+}
+
+#warning > p {
+    font-size:12pt;
+}
+
 .api-input-card {
     background-color:rgba(98,95,124,0.9);
     border-radius:6px;
@@ -47,11 +68,11 @@
 }
 
 .api-input-card-content * {
-    position: absolute;
+    position:absolute;
 }
 
 .card {
-    background: linear-gradient(to bottom left, rgba(102,152,255,0.4), rgba(21,27,84,0.4));
+    background:linear-gradient(to bottom left, rgba(102,152,255,0.4), rgba(21,27,84,0.4));
     margin:0;
     z-index:-999999;
 }
@@ -64,6 +85,13 @@
 
 .card-deck {
     z-index:-1000;
+}
+
+.cardContents {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 a {

@@ -6,26 +6,26 @@ function DegreeInput(props) {
             <h2 id="update-degree-heading">Search radius in the sky above (in degrees):</h2>
 
             <select id="degrees" value={props.degrees} onChange={props.updateDegrees}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-                <option value="60">60</option>
-                <option value="70">70</option>
-                <option value="80">80</option>
-                <option value="90">90</option>
+                <option value="1">1 degree</option>
+                <option value="2">2 degrees</option>
+                <option value="3">3 degrees</option>
+                <option value="4">4 degrees</option>
+                <option value="5">5 degrees</option>
+                <option value="6">6 degrees</option>
+                <option value="7">7 degrees</option>
+                <option value="8">8 degrees</option>
+                <option value="9">9 degrees</option>
+                <option value="10">10 degrees</option>
+                <option value="15">15 degrees</option>
+                <option value="20">20 degrees</option>
+                <option value="25">25 degrees</option>
+                <option value="30">30 degrees</option>
+                <option value="40">40 degrees</option>
+                <option value="50">50 degrees</option>
+                <option value="60">60 degrees</option>
+                <option value="70">70 degrees</option>
+                <option value="80">80 degrees</option>
+                <option value="90">90 degrees</option>
             </select>
         </div>
     )

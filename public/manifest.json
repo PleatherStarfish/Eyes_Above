@@ -3,7 +3,7 @@
 
   "name": "Eyes Above",
   "description": "A Chrome extension that visualizes and sonifies the artificial satellites orbiting above the user.",
-  "version": "0.0.1",
+  "version": "0.0.0.1",
 
   "browser_action": {
     "default_popup": "index.html",

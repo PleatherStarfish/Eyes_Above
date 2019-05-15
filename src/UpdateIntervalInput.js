@@ -8,11 +8,12 @@ function UpdateInterval(props) {
             <p id="caution">Caution: The N2YO API is currently limited to 1000 transactions per hour.</p>
 
             <select id="interval" value={props.interval} onChange={props.updateInterval}>
-                <option value="1">1</option>
-                <option value="5">5</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="60">60</option>
+                <option value="1">1 min.</option>
+                <option value="5">5 min.</option>
+                <option value="15">15 min.</option>
+                <option value="30">30 min.</option>
+                <option value="60">1 hr.</option>
+                <option value="120">2 hr.</option>
             </select>
         </div>
     )
