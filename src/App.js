@@ -60,6 +60,7 @@ class App extends Component {
         }, () => {
             // console.log(this.state.interval);
             this.update();
+            chrome.storage.sync.set({'interval': this.state.interval})
         });
     }
 
@@ -69,6 +70,7 @@ class App extends Component {
         }, () => {
                 // console.log(this.state.url);
                 this.getLocation();
+                chrome.storage.sync.set({'degrees': this.state.degrees})
         });
     }
 
@@ -76,14 +78,18 @@ class App extends Component {
     closeCard() {
         this.setState({
             getInput: false
-        })
+        }, () => {
+                chrome.storage.sync.set({'getInput': this.state.getInput})
+            });
     }
 
     // Set state to open the "settings" card
     openCard() {
         this.setState({
             getInput: true
-        })
+        }, () => {
+                chrome.storage.sync.set({'getInput': this.state.getInput})
+            });
     }
 
     // Update is a callback that updates this.state.geolocation and calls the API at intervals
@@ -108,7 +114,9 @@ class App extends Component {
                     this.setState({
                         satellites: incomingSatsArray,
                         transactionscount: json.info.transactionscount
-                    });
+                    }, () => {
+                            chrome.storage.sync.set({'satellites': this.state.satellites})
+                        });
                 })
                 .catch(err => console.log(err));
         } else {
@@ -145,6 +153,18 @@ class App extends Component {
             (result.apiKey) ? this.setState({apiKey: result.apiKey})
                      : (console.log("No API key in local storage. Please enter one."))
         });
+        chrome.storage.sync.get(['degrees'], (result) => {
+            (result.degrees) ? this.setState({degrees: result.degrees})
+                : (console.log("No degrees in local storage. Please enter degrees."))
+        });
+        chrome.storage.sync.get(['satellites'], (result) => {
+            (result.satellites.length > 0) ? this.setState({satellites: result.satellites})
+                : (console.log("No satellites in local storage."))
+        });
+        chrome.storage.sync.get(['getInput'], (result) => {
+            (result.getInput != null) ? this.setState({getInput: result.getInput})
+                : (console.log("No satellites in local storage."))
+        });
     }
 
     componentDidMount() {
@@ -170,6 +190,7 @@ class App extends Component {
         let cardDeck =
             <a className="card-deck">
                 <div id="open-settings" onClick={this.openCard} />
+                <div id="audio" onClick={this.audioOn} />
                 <a href="https://github.com/PleatherStarfish/Eyes_Above" target="_blank" ><div id="open-info" /></a>
                 <ul>
                     {(this.state.satellites)

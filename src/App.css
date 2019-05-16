@@ -31,11 +31,21 @@
     padding:35px 0 35px 35px;
 }
 
+#audio {
+    background-image:url(media/audio.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    left:65px;
+    padding:35px 0 35px 35px;
+    position:absolute;
+    top:555px;
+}
+
 #open-info {
     background-image:url(media/info.png);
     background-repeat:no-repeat;
     cursor:pointer;
-    left:55px;
+    left:107px;
     padding:35px 0 35px 35px;
     position:absolute;
     top:555px;
