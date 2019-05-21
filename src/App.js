@@ -98,6 +98,8 @@ class App extends Component {
             setInterval(() => {
                 this.getLocation()
             }, this.state.interval * 1000)
+        }, () => {
+            chrome.storage.sync.set({'currentInterval': this.state.currentInterval})
         })
     }
 
@@ -122,6 +124,7 @@ class App extends Component {
         } else {
             console.log("More than 1000 API requests in the last hour.")
         }
+        this.setState({getInput: false});
     }
 
     // method to handle key input from form field
@@ -149,21 +152,25 @@ class App extends Component {
 
     // When the App component mounts, get the user's initial geolocation
     componentWillMount() {
+
+        chrome.storage.sync.get(['satellites'], (result) => {
+            (result.satellites) ? this.setState({satellites: result.satellites})
+                : (console.log("No satellites in local storage. Please enter degrees."))
+        });
+
         chrome.storage.sync.get(['apiKey'], (result) => {
             (result.apiKey) ? this.setState({apiKey: result.apiKey})
                      : (console.log("No API key in local storage. Please enter one."))
         });
+
         chrome.storage.sync.get(['degrees'], (result) => {
             (result.degrees) ? this.setState({degrees: result.degrees})
                 : (console.log("No degrees in local storage. Please enter degrees."))
         });
-        chrome.storage.sync.get(['satellites'], (result) => {
-            (result.satellites.length > 0) ? this.setState({satellites: result.satellites})
-                : (console.log("No satellites in local storage."))
-        });
+
         chrome.storage.sync.get(['getInput'], (result) => {
             (result.getInput != null) ? this.setState({getInput: result.getInput})
-                : (console.log("No satellites in local storage."))
+                : (console.log("No getInput in local storage."))
         });
     }
 

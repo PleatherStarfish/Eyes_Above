@@ -1,6 +1,11 @@
 {
   "manifest_version": 2,
 
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
   "name": "Eyes Above",
   "description": "A Chrome extension that visualizes and sonifies the artificial satellites orbiting above the user.",
   "version": "0.0.0.1",
@@ -12,9 +17,11 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [
     "geolocation",
-    "storage"
+    "storage",
+    "notifications"
   ],
-  "icons": { "16": "icon16.png",
+  "icons": {
+    "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png" }
 }
