@@ -6,11 +6,24 @@ class Audio extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            audioOn: false,
             pwm: null,
             lfo1: null,
-            lfo2: null
+            lfo2: null,
+            pitch: (Math.random() * 15000) + 40
         }
+    }
+
+    // We don't want the audio component to update whenever state
+    // changes in the parent branch, only when it gets new props
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.satid !== nextProps.satid) {
+            return true;
+        }
+        if (this.props.toggleAudio !== nextProps.toggleAudio) {
+            return true;
+        }
+        return false;
     }
 
     componentWillMount() {
@@ -78,16 +91,28 @@ class Audio extends Component {
     }
 
     componentDidMount() {
-        const pitch = (Math.random() * 15000) + 40;
-        console.log(`Pitch: ${pitch}`);
-        this.state.pwm.triggerAttack(pitch);
+        // By default audio does NOT start when component mounts, but it's an option
+        if (this.props.toggleAudio) {
+            this.state.pwm.triggerAttack(this.state.pitch);
+        }
     }
 
     componentWillUnmount() {
-        this.state.pwm.triggerRelease();
+        // If audio IS playing, turn it off when the component unmounts
+        if (this.props.toggleAudio) {
+            this.state.pwm.triggerRelease();
+        }
     }
 
     render() {
+
+        console.log(this.props.toggleAudio);
+
+        if (this.props.toggleAudio) {
+            this.state.pwm.triggerAttack(this.state.pitch);
+        } else {
+            this.state.pwm.triggerRelease();
+        }
 
         return (
             null
