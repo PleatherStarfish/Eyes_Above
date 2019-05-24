@@ -22,12 +22,13 @@ class App extends Component {
         this.state = {
             apiKey: '',            // User supplied API key
             satellites: [],        // Array returned by the API containing satellites in the sky
-            degrees: 10,            // Degrees of the search radius in the sky above
+            degrees: 10,           // Degrees of the search radius in the sky above
             id: 'ANY',             // Types of satellites returned by the API
             interval: 15,          // Time interval in which the app rechecks its geolocation
             currentInterval: null, // Set to a "setInterval" callback function by the "update" method
             transactionscount: 0,  // Number of API transactions in the last hour
-            getInput: true         // Overlay to get API key and settings from user.
+            getInput: true,        // Overlay to get API key and settings from user.
+            audioMuted: false
         };
         this.updateKey = this.updateKey.bind(this);
         this.getLocation = this.getLocation.bind(this);
@@ -38,6 +39,7 @@ class App extends Component {
         this.updateInterval = this.updateInterval.bind(this);
         this.updateDegrees = this.updateDegrees.bind(this);
         this.getApiOnKeySubmit = this.getApiOnKeySubmit.bind(this);
+        this.audioMutedToggle = this.audioMutedToggle.bind(this);
     }
 
     // Set state to value entered by the user
@@ -150,6 +152,12 @@ class App extends Component {
             });
     }
 
+    audioMutedToggle() {
+        this.setState(() => ({
+            audioMuted: !this.state.audioMuted
+        }));
+    }
+
     // When the App component mounts, get the user's initial geolocation
     componentWillMount() {
 
@@ -180,6 +188,8 @@ class App extends Component {
 
     render() {
 
+        const audio = (!this.state.audioMuted) ? 'audio' : 'audio-muted';
+
         let overlay =
             <div>
                 <SettingsCard
@@ -197,11 +207,16 @@ class App extends Component {
         let cardDeck =
             <a className="card-deck">
                 <div id="open-settings" onClick={this.openCard} />
-                <div id="audio" onClick={this.audioOn} />
+                <div id={audio} onClick={this.audioMutedToggle} />
                 <a href="https://github.com/PleatherStarfish/Eyes_Above" target="_blank" ><div id="open-info" /></a>
                 <ul>
                     {(this.state.satellites)
-                        ? this.state.satellites.map(item => <Card item={item} key={item.satid} />)
+                        ? this.state.satellites.map(item =>
+                            <Card
+                                item={item}
+                                key={item.satid}
+                                audioMuted={this.state.audioMuted}
+                            />)
                         : console.log("No satellites found.")}
                 </ul>
             </a>;

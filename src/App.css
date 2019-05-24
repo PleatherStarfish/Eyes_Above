@@ -69,6 +69,16 @@
     top:555px;
 }
 
+#audio-muted {
+    background-image:url(media/audio_mute.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    left:65px;
+    padding:35px 0 35px 35px;
+    position:absolute;
+    top:555px;
+}
+
 #open-info {
     background-image:url(media/info.png);
     background-repeat:no-repeat;
