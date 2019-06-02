@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import './App.css';
 import SettingsCard from './SettingsCard.js';
 import Card from './Card.js';
+import data from './sat_data.json'
 
 if (typeof window !== 'undefined') {
     window.React = React;
@@ -211,10 +212,10 @@ class App extends Component {
                 <a href="https://github.com/PleatherStarfish/Eyes_Above" target="_blank" ><div id="open-info" /></a>
                 <ul>
                     {(this.state.satellites)
-                        ? this.state.satellites.map(item =>
+                        ? this.state.satellites.map(satellite =>
                             <Card
-                                item={item}
-                                key={item.satid}
+                                satellite={satellite}
+                                key={satellite.satid}
                                 audioMuted={this.state.audioMuted}
                             />)
                         : console.log("No satellites found.")}
