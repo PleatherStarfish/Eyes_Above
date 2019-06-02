@@ -10,23 +10,31 @@ class Card extends Component {
             slideOutOpen: false
         };
         this.toggleAudio = this.toggleAudio.bind(this);
+        this.toggleSlideOut = this.toggleSlideOut.bind(this)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         return (this.props.key !== nextProps.key) ||            // Returns true if any is true, else false
                (this.state.audioOn !== nextState.audioOn) ||
-               (this.props.audioMuted !== nextProps.audioMuted);
+               (this.props.audioMuted !== nextProps.audioMuted) ||
+               (this.state.slideOutOpen !== nextState.slideOutOpen);
     }
 
     // turn audio on/off
     toggleAudio() {
-
         // Only allow toggle if unmuted
         if (!this.props.audioMuted) {
             this.setState(() => ({
                 audioOn: !this.state.audioOn
             }));
         }
+    }
+
+    // slide in/out panel with satellite info
+    toggleSlideOut() {
+        this.setState(() => ({
+            slideOutOpen: !this.state.slideOutOpen
+        }));
     }
 
     render() {
@@ -45,70 +53,69 @@ class Card extends Component {
         let alt = this.props.satellite.satalt;
         let alt_unit = "km";
 
-        if (alt < 10000) {
+        if (alt < 1000000) {
             alt = alt.toLocaleString();
-        }
-        else if (alt < 1000000) {
-            alt = alt / 1000;
-            alt = alt.toLocaleString();
-            alt_unit = "Mm"
         }
         else if (alt < 1000000000) {
             alt = alt / 1000000;
             alt = alt.toLocaleString();
-            alt_unit = "Gm"
+            alt_unit = "gm"
         } else {
             alt = alt / 1000000000;
             alt = alt.toLocaleString();
-            alt_unit = "Tm"
+            alt_unit = "tm"
         }
 
         return (
-            <li key={this.props.key} className="card">
-                <div className="card-contents">
-                    <div className="card-contents-left">
-                        <h2>{this.props.satellite.satname}</h2>
-                        <p style={{paddingTop: "2px", marginTop: 0}}>NORAD ID: {this.props.satellite.satid}</p>
+            <li key={this.props.key} >
+                <div className="card">
+                    <div className="card-contents">
+                        <div className="card-contents-left">
+                            <h2>{this.props.satellite.satname}</h2>
+                            <p style={{paddingTop: "2px", marginTop: 0}}>NORAD ID: {this.props.satellite.satid}</p>
+                        </div>
+                        <div className="card-contents-right">
+                            <p style={{paddingTop: "20px", marginTop: 0}}>LAUNCH DATE: {utc}</p>
+                            <p style={{paddingTop: "5px", marginTop: 0}}>ALTITUDE: {alt} {alt_unit}</p>
+
+                            {/*{the tone.js audio synthesizer itself}*/}
+                            <Audio satid={this.props.satellite.satid} toggleAudio={this.state.audioOn} />
+
+                        </div>
                     </div>
-                    <div className="card-contents-right">
-                        <p style={{paddingTop: "20px", marginTop: 0}}>LAUNCH DATE: {utc}</p>
-                        <p style={{paddingTop: "5px", marginTop: 0}}>ALTITUDE: {alt} {alt_unit}</p>
 
-                        {/*{the tone.js audio synthesizer itself}*/}
-                        <Audio satid={this.props.satellite.satid} toggleAudio={this.state.audioOn} />
+                    <div className="card-footer">
 
-                    </div>
-                </div>
+                        <div className="slide-out-arrow">
 
-                <div className="card-footer">
+                            <div></div>
 
-                    <div className="slide-out-arrow">
+                            {(this.state.slideOutOpen) ?
+                                <div className="arrow-up" onClick={this.toggleSlideOut}>&#xFE3D;</div> :
+                                <div className="arrow-down" onClick={this.toggleSlideOut}>&#xFE3E;</div>
+                            }
 
-                        <div></div>
+                            {/*{audio toggle icon}*/}
+                            <div
+                                id={speakerClicked}
+                                onClick={this.toggleAudio}>
+                            </div>
 
-                        {(this.state.slideOutOpen) ?
-                            <div className="arrow">&#65085;</div> :
-                            <div className="arrow">&#65086;</div>
-                        }
-
-                        {/*{audio toggle icon}*/}
-                        <div
-                            id={speakerClicked}
-                            onClick={this.toggleAudio}>
                         </div>
 
                     </div>
-
                 </div>
 
                 {(this.state.slideOutOpen)
                     ?
                     <div className="slide-out-open">
+
                     {(Data[id].source) ?
                         <p style={{paddingTop: "5px", marginTop: 0}}>NATIONALITY: {Data[id].source}</p>
                         :
                         null
                     }
+
                     </div>
                     :
                     <div className="slide-out-closed"></div>

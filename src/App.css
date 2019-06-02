@@ -124,6 +124,12 @@
     background:linear-gradient(to bottom left, rgba(102,152,255,0.4), rgba(21,27,84,0.4));
     margin:0;
     z-index:-999999;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    height:108px;
+    width:100%;
 }
 
 .card h2 {
@@ -201,12 +207,7 @@ input[type=submit]:hover {
 }
 
 li {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: space-between;
-    height:108px;
-    width:100%;
+
 }
 
 p {
@@ -327,10 +328,20 @@ ul,li {
     flex-direction: row;
     justify-content: space-between;
 }
-.arrow {
+
+/* slideOutOpen = false */
+.arrow-down {
     color: grey;
     font-size: 16pt;
     margin: 3px 0 0 38px;
+    cursor: pointer;
+}
+
+.arrow-up {
+    color: grey;
+    font-size: 16pt;
+    margin: -10px 0 0 38px;
+    cursor: pointer;
 }
 
 .arrow:hover {
@@ -341,8 +352,15 @@ ul,li {
 .slide-out-open {
     height: 108px;
     width: 100%;
+    background-color: rgba(209,224,255,0.6);
+    box-shadow: inset 2px 5px 25px rgba(19,22,56,0.8);
+    color: rgba(0,0,0,1);
+    transition: color 1s, background-color 1s, height 1s;
 }
 
 .slide-out-closed {
     height: 0;
+    background-color: rgba(255,255,255,0);
+    color: rgba(255,255,255,0);
+    transition: color 1s, background-color 1s, height 1s;
 }
