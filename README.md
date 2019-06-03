@@ -1,6 +1,4 @@
-<img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818124-558b7880-85fb-11e9-8af1-d5fb0a9ae7bf.png" width="300" height="450">
-<img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818139-5d4b1d00-85fb-11e9-96e7-569d441a5cee.png" width="300" height="450">
-<img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818148-63d99480-85fb-11e9-9185-78ca750d7185.png" width="300" height="450">
+<img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818124-558b7880-85fb-11e9-8af1-d5fb0a9ae7bf.png" width="300" height="450"> <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818139-5d4b1d00-85fb-11e9-96e7-569d441a5cee.png" width="300" height="450"> <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818148-63d99480-85fb-11e9-9185-78ca750d7185.png" width="300" height="450">
 
 <br/><br/>
 A Chrome browser extension built in React.js for visualizing and sonifying satellites overhead in realtime. The app requires the user to enter an API key 
