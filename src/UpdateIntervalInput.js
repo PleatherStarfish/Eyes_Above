@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 function UpdateInterval(props) {
     return (
-        <div>
+        <div className="update-interval">
             <h2 id="update-interval-heading">Update time interval (in minutes):</h2>
 
             <p id="caution">Caution: The N2YO API is currently limited to 1000 transactions per hour.</p>

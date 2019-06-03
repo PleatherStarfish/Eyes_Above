@@ -211,12 +211,25 @@ li {
 }
 
 p {
-    color:rgba(255,240,228,1);
+    color:rgba(255,218,189,1);
     font-family:'Fjalla One', sans-serif;
     font-size:calc(4px + 2vmin);
     letter-spacing:.09em;
     line-height:1.5em;
     margin:10px 0 0 24px;
+}
+
+p > b {
+    color: white;
+}
+
+.update-interval > p,
+.api-input-card-content > p {
+    color: rgba(255,240,228,1);
+}
+
+#warning > p {
+    color: rgba(255,240,228,1);
 }
 
 select {
@@ -350,12 +363,25 @@ ul,li {
 }
 
 .slide-out-open {
-    height: 108px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+    height: 170px;
     width: 100%;
     background-color: rgba(209,224,255,0.6);
-    box-shadow: inset 2px 5px 25px rgba(19,22,56,0.8);
+    box-shadow: inset 2px 5px 15px rgba(0,0,0,0.8);
     color: rgba(0,0,0,1);
     transition: color 1s, background-color 1s, height 1s;
+}
+
+.slide-out-open-left, .slide-out-open-right {
+    margin: 20px 0 20px 0;
+    width: calc(50% - 10px);
+}
+
+.slide-out-open-right {
+    padding-right: 20px;
 }
 
 .slide-out-closed {
