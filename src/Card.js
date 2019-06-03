@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Data from './sat_data.json'
-import Audio from "./Audio";
+import Audio from './Audio';
+
+const iso3311a2 = require('./../node_modules/iso-3166-1-alpha-2');
 
 class Card extends Component {
     constructor(props) {
@@ -50,21 +52,25 @@ class Card extends Component {
 
         const id = this.props.satellite.satid;
 
-        // let alt = this.props.satellite.satalt;
-        // let alt_unit = "km";
-        //
-        // if (alt < 1000000) {
-        //     alt = alt.toLocaleString();
-        // }
-        // else if (alt < 1000000000) {
-        //     alt = alt / 1000000;
-        //     alt = alt.toLocaleString();
-        //     alt_unit = "gm"
-        // } else {
-        //     alt = alt / 1000000000;
-        //     alt = alt.toLocaleString();
-        //     alt_unit = "tm"
-        // }
+        let flag = null;
+        if (Data[id].source) {
+
+            let country = Data[id].source.replace(/ *\([^)]*\) */g, "");
+            country = country.trim();
+            if (country === "People's Republic of China") {
+                country = "China";
+            }
+            if (country === "Commonwealth of Independent States") {
+                country = "Russia";
+            }
+
+            let country_code = iso3311a2.getCode(country);
+
+            if (country_code) {
+                country_code = country_code.toLowerCase();
+                flag = `flag-icon flag-icon-${country_code}`;
+            }
+        }
 
         return (
             <li key={this.props.key} >
@@ -73,6 +79,8 @@ class Card extends Component {
                         <div className="card-contents-left">
 
                             <h2>{this.props.satellite.satname}</h2>
+
+                            <span className={flag}></span>
 
                         </div>
                         <div className="card-contents-right">
@@ -84,10 +92,6 @@ class Card extends Component {
                             <p style={{paddingTop: "5px", marginTop: 0}}>
                                 <b>LAUNCH DATE:</b> {utc}
                             </p>
-
-                            {/*<p style={{paddingTop: "5px", marginTop: 0}}>*/}
-                            {/*    <b>ALTITUDE:</b> {alt} {alt_unit}*/}
-                            {/*</p>*/}
 
                             {/*{the tone.js audio synthesizer itself}*/}
                             <Audio satid={this.props.satellite.satid} toggleAudio={this.state.audioOn} />
@@ -138,16 +142,16 @@ class Card extends Component {
                                 null
                             }
 
+                        </div>
+
+                        <div className="slide-out-open-right">
+
                             {(Data[id].period) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>PERIOD:</b> {Data[id].period}</p>
                                 :
                                 null
                             }
-
-                        </div>
-
-                        <div className="slide-out-open-right">
 
                             {(Data[id].inclination) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
