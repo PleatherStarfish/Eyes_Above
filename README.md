@@ -13,6 +13,7 @@ The Eyes Above browser extension can be found on the Chrome Web Store here: http
 
 Eyes Above requires to user to enter their own API key from n2yo.com. To do this, create a free account, navigate to 
 your user page, and copy the 22 digit key shown at the bottem of the page.
+
 <br/>
 <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58820462-afdb0800-8600-11e9-9c1f-01fa1f990f52.jpg"  width="521" height="384">
 
