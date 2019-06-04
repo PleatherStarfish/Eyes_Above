@@ -20,12 +20,6 @@ function DegreeInput(props) {
                 <option value="20">20 degrees</option>
                 <option value="25">25 degrees</option>
                 <option value="30">30 degrees</option>
-                <option value="40">40 degrees</option>
-                <option value="50">50 degrees</option>
-                <option value="60">60 degrees</option>
-                <option value="70">70 degrees</option>
-                <option value="80">80 degrees</option>
-                <option value="90">90 degrees</option>
             </select>
         </div>
     )

@@ -16,7 +16,7 @@ setInterval(() => {
 function messageReceived(chromeSatellites) {
     chrome.notifications.create("nid", {
         title: 'Satellites',
-        iconUrl: 'bridge.png',
+        iconUrl: 'icon48.png',
         type: 'basic',
         message: "chromeSatellites"
     }, function(){});

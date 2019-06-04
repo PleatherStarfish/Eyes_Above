@@ -94,7 +94,7 @@ class Card extends Component {
 
                             {(flag) ?
                                 <span className={flag}></span> :
-                                (Data[id] && Data[id].source) && <span style={{marginLeft: '25px'}}>
+                                (Data[id] && Data[id].source) && <span style={{marginLeft: '22px'}}>
                                     <b>{country}</b>
                                 </span>
                             }

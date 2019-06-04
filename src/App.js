@@ -99,7 +99,7 @@ class App extends Component {
         this.setState({currentInterval:
             setInterval(() => {
                 this.getLocation()
-            }, this.state.interval * 1000)
+            }, this.state.interval * 60000)
         }, () => {
             chrome.storage.sync.set({'currentInterval': this.state.currentInterval})
         })
