@@ -19,7 +19,8 @@ class Card extends Component {
         return (this.props.key !== nextProps.key) ||            // Returns true if any is true, else false
                (this.state.audioOn !== nextState.audioOn) ||
                (this.props.audioMuted !== nextProps.audioMuted) ||
-               (this.state.slideOutOpen !== nextState.slideOutOpen);
+               (this.state.slideOutOpen !== nextState.slideOutOpen) ||
+               (this.props.getInput !== nextState.getInput);
     }
 
     // turn audio on/off
@@ -53,15 +54,24 @@ class Card extends Component {
         const id = this.props.satellite.satid;
 
         let flag = null;
-        if (Data[id].source) {
+        let country = null;
 
-            let country = Data[id].source.replace(/ *\([^)]*\) */g, "");
+        if (Data[id] && Data[id].source && !this.props.getInput) {
+
+            console.log(this.props.satellite.satalt);
+            console.log(Data[id].source);
+            console.log(Data[id].source.replace(/ *\([^)]*\) */g, "").trim());
+
+            country = Data[id].source.replace(/ *\([^)]*\) */g, "");
             country = country.trim();
             if (country === "People's Republic of China") {
                 country = "China";
             }
             if (country === "Commonwealth of Independent States") {
-                country = "Russia";
+                country = "Russian Federation";
+            }
+            if (country === "Iran") {
+                country = "The Islamic Republic of Iran";
             }
 
             let country_code = iso3311a2.getCode(country);
@@ -70,6 +80,8 @@ class Card extends Component {
                 country_code = country_code.toLowerCase();
                 flag = `flag-icon flag-icon-${country_code}`;
             }
+
+            console.log("Country: ", country, ", Country_code: ", country_code, ", Flag: ", flag);
         }
 
         return (
@@ -80,7 +92,12 @@ class Card extends Component {
 
                             <h2>{this.props.satellite.satname}</h2>
 
-                            <span className={flag}></span>
+                            {(flag) ?
+                                <span className={flag}></span> :
+                                (Data[id] && Data[id].source) && <span style={{marginLeft: '25px'}}>
+                                    <b>{country}</b>
+                                </span>
+                            }
 
                         </div>
                         <div className="card-contents-right">
@@ -94,7 +111,12 @@ class Card extends Component {
                             </p>
 
                             {/*{the tone.js audio synthesizer itself}*/}
-                            <Audio satid={this.props.satellite.satid} toggleAudio={this.state.audioOn} />
+                            <Audio
+                                satid={this.props.satellite.satid}
+                                toggleAudio={this.state.audioOn}
+                                data={(Data[id]) ? Data[id] : null}
+                                alt={this.props.satellite.satalt}
+                            />
 
                         </div>
                     </div>
@@ -127,7 +149,7 @@ class Card extends Component {
 
                         <div className="slide-out-open-left">
 
-                            {(Data[id].source) ?
+                            {(Data[id] && Data[id].source) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>NATIONALITY:</b> {Data[id].source}
                                 </p>
@@ -135,7 +157,7 @@ class Card extends Component {
                                 null
                             }
 
-                            {(Data[id].launch_site) ?
+                            {(Data[id] && Data[id].launch_site) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>LAUNCH SITE:</b> {Data[id].launch_site}</p>
                                 :
@@ -146,35 +168,35 @@ class Card extends Component {
 
                         <div className="slide-out-open-right">
 
-                            {(Data[id].period) ?
+                            {(Data[id] && Data[id].period) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>PERIOD:</b> {Data[id].period}</p>
                                 :
                                 null
                             }
 
-                            {(Data[id].inclination) ?
+                            {(Data[id] && Data[id].inclination) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>INCLINATION:</b> {Data[id].inclination} &#176;</p>
                                 :
                                 null
                             }
 
-                            {(Data[id].semi_major_axis) ?
+                            {(Data[id] && Data[id].semi_major_axis) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>SEMIMAJOR AXIS:</b> {Data[id].semi_major_axis} km</p>
                                 :
                                 null
                             }
 
-                            {(Data[id].perigee) ?
+                            {(Data[id] && Data[id].perigee) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>PARIGEE:</b> {Data[id].perigee} km</p>
                                 :
                                 null
                             }
 
-                            {(Data[id].apogee) ?
+                            {(Data[id] && Data[id].apogee) ?
                                 <p style={{paddingTop: "5px", marginTop: 0}}>
                                     <b>APOGEE:</b> {Data[id].apogee} km</p>
                                 :

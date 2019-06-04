@@ -390,3 +390,11 @@ ul,li {
     color: rgba(255,255,255,0);
     transition: color 1s, background-color 1s, height 1s;
 }
+
+.flag-icon {
+    display: block;
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+    margin: 10px 0 0 20px;
+}

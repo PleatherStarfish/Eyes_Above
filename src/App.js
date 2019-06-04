@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import './App.css';
 import SettingsCard from './SettingsCard.js';
 import Card from './Card.js';
-import data from './sat_data.json'
 
 if (typeof window !== 'undefined') {
     window.React = React;
@@ -217,6 +216,7 @@ class App extends Component {
                                 satellite={satellite}
                                 key={satellite.satid}
                                 audioMuted={this.state.audioMuted}
+                                getInput={this.state.getInput}
                             />)
                         : console.log("No satellites found.")}
                 </ul>
