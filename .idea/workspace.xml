@@ -54,8 +54,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor>
-                <caret column="455" selection-start-column="455" selection-end-column="455" />
+              <first_editor relative-caret-position="188">
+                <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
               </first_editor>
               <second_editor />
             </state>
@@ -210,16 +210,6 @@
               <item name="eyes_above" type="b2602c69:ProjectViewProjectNode" />
               <item name="eyes_above" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="eyes_above" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eyes_above" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eyes_above" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eyes_above" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -296,18 +286,18 @@
       <workItem from="1559335634361" duration="72000" />
       <workItem from="1559335712283" duration="12000" />
       <workItem from="1559485216305" duration="46507000" />
-      <workItem from="1559630475493" duration="3740000" />
+      <workItem from="1559630475493" duration="4497000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242620000" />
+    <option name="totallyTimeSpent" value="243377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15079366" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15079366" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -322,7 +312,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50305253" side_tool="true" weight="0.16470589" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4969475" visible="true" weight="0.16470589" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4969475" visible="true" weight="0.16470589" />
       <window_info anchor="bottom" id="DB Execution Console" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -577,8 +567,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="455" selection-start-column="455" selection-end-column="455" />
+          <first_editor relative-caret-position="188">
+            <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
           </first_editor>
           <second_editor />
         </state>

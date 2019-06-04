@@ -1,9 +1,12 @@
 <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58818124-558b7880-85fb-11e9-8af1-d5fb0a9ae7bf.png" width="290" height="435"> <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58891006-b8434980-86b9-11e9-8974-7827932b0974.png" width="290" height="435"> <img style="float: center;" src="https://user-images.githubusercontent.com/10040486/58891072-ddd05300-86b9-11e9-8941-a2b23660a109.png" width="290" height="435">
 
 <br/>
-A Chrome browser extension built in React.js for visualizing and sonifying satellites overhead in realtime. The app 
+
+Eyes Above is a Chrome browser extension built in React.js for visualizing and sonifying satellites overhead in realtime. The app 
 requires the user to enter an API key 
 from https://www.n2yo.com. Audio sonification of data uses Web Audio API via [Tone.js](https://tonejs.github.io/).
+
+The Eyes Above browser extension can be found on the Chrome Web Store here: https://chrome.google.com/webstore/detail/eyes-above/goeipoopgdbebjoikkjihfjahogjbnda
 
 ## How to Enter the API Key
 
