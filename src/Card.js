@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import autoBind from 'react-autobind';
 import Data from './sat_data.json'
 import Audio from './Audio';
 
@@ -7,12 +8,11 @@ const iso3311a2 = require('./../node_modules/iso-3166-1-alpha-2');
 class Card extends Component {
     constructor(props) {
         super(props);
+        autoBind(this);
         this.state = {
             audioOn: false,
             slideOutOpen: false
         };
-        this.toggleAudio = this.toggleAudio.bind(this);
-        this.toggleSlideOut = this.toggleSlideOut.bind(this)
     }
 
     shouldComponentUpdate(nextProps, nextState) {

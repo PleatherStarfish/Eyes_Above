@@ -372,7 +372,7 @@ ul,li {
     background-color: rgba(209,224,255,0.6);
     box-shadow: inset 2px 5px 15px rgba(0,0,0,0.8);
     color: rgba(0,0,0,1);
-    transition: color 1s, background-color 1s, height 1s;
+    transition: color 2s, background-color 2s, height 1s;
 }
 
 .slide-out-open-left, .slide-out-open-right {
@@ -388,7 +388,7 @@ ul,li {
     height: 0;
     background-color: rgba(255,255,255,0);
     color: rgba(255,255,255,0);
-    transition: color 1s, background-color 1s, height 1s;
+    transition: color 2s, background-color 2s, height 1s;
 }
 
 .flag-icon {

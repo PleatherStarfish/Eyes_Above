@@ -1,6 +1,7 @@
 /* global chrome */
 
 import React, {Component} from 'react';
+import autoBind from 'react-autobind';
 import './App.css';
 import SettingsCard from './SettingsCard.js';
 import Card from './Card.js';
@@ -19,6 +20,7 @@ const getPosition = () => {
 class App extends Component {
     constructor(props) {
         super(props);
+        autoBind(this);
         this.state = {
             apiKey: '',            // User supplied API key
             satellites: [],        // Array returned by the API containing satellites in the sky
@@ -30,16 +32,6 @@ class App extends Component {
             getInput: true,        // Overlay to get API key and settings from user.
             audioMuted: false
         };
-        this.updateKey = this.updateKey.bind(this);
-        this.getLocation = this.getLocation.bind(this);
-        this.closeCard = this.closeCard.bind(this);
-        this.openCard = this.openCard.bind(this);
-        this.fetchSatellites = this.fetchSatellites.bind(this);
-        this.update = this.update.bind(this);
-        this.updateInterval = this.updateInterval.bind(this);
-        this.updateDegrees = this.updateDegrees.bind(this);
-        this.getApiOnKeySubmit = this.getApiOnKeySubmit.bind(this);
-        this.audioMutedToggle = this.audioMutedToggle.bind(this);
     }
 
     // Set state to value entered by the user
@@ -49,7 +41,7 @@ class App extends Component {
         }, () => {
             chrome.storage.sync.set({'apiKey': this.state.apiKey})
         });
-    }
+    };
 
     // Set how often the app refreshes itself
     updateInterval(event) {
@@ -64,7 +56,7 @@ class App extends Component {
             this.update();
             chrome.storage.sync.set({'interval': this.state.interval})
         });
-    }
+    };
 
     updateDegrees(event) {
         this.setState({
@@ -74,7 +66,7 @@ class App extends Component {
                 this.getLocation();
                 chrome.storage.sync.set({'degrees': this.state.degrees})
         });
-    }
+    };
 
     // Set state to close the "settings" card
     closeCard() {
@@ -83,7 +75,7 @@ class App extends Component {
         }, () => {
                 chrome.storage.sync.set({'getInput': this.state.getInput})
             });
-    }
+    };
 
     // Set state to open the "settings" card
     openCard() {
@@ -92,7 +84,7 @@ class App extends Component {
         }, () => {
                 chrome.storage.sync.set({'getInput': this.state.getInput})
             });
-    }
+    };
 
     // Update is a callback that updates this.state.geolocation and calls the API at intervals
     update() {
@@ -103,7 +95,7 @@ class App extends Component {
         }, () => {
             chrome.storage.sync.set({'currentInterval': this.state.currentInterval})
         })
-    }
+    };
 
     fetchSatellites(geolocation) {
         const url = `https://www.n2yo.com/rest/v1/satellite/above/${geolocation.latitude}/${geolocation.longitude}/${geolocation.altitude}/${this.state.degrees}/${this.state.id}/&apiKey=${this.state.apiKey}`;
@@ -127,13 +119,13 @@ class App extends Component {
             console.log("More than 1000 API requests in the last hour.")
         }
         this.setState({getInput: false});
-    }
+    };
 
     // method to handle key input from form field
     getApiOnKeySubmit(e) {
         this.getLocation();
         e.preventDefault();
-    }
+    };
 
     // Get the user's geolocation
     getLocation(willFetch=true) {
@@ -150,16 +142,16 @@ class App extends Component {
             .catch((err) => {
                 console.error(err.message);
             });
-    }
+    };
 
     audioMutedToggle() {
         this.setState(() => ({
             audioMuted: !this.state.audioMuted
         }));
-    }
+    };
 
     // When the App component mounts, get the user's initial geolocation
-    componentWillMount() {
+    componentDidMount() {
 
         chrome.storage.sync.get(['satellites'], (result) => {
             (result.satellites) ? this.setState({satellites: result.satellites})
@@ -180,9 +172,7 @@ class App extends Component {
             (result.getInput != null) ? this.setState({getInput: result.getInput})
                 : (console.log("No getInput in local storage."))
         });
-    }
 
-    componentDidMount() {
         this.update();
     }
 

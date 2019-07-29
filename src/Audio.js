@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
+import autoBind from 'react-autobind';
 import Tone from 'Tone';
 
 class Audio extends Component {
 
     constructor(props) {
         super(props);
+        autoBind(this);
         this.state = {
             pwm: null,
             lfo1: null,
             trem: null,
             pitch: 1
         };
-        this.mapToNewRange = this.mapToNewRange.bind(this);
     }
 
     mapToNewRange({num, in_min=180, in_max=35786, out_min=30, out_max=12000, linear=true}) {
